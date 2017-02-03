@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+ 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	<link rel="stylesheet" type="text/css" href="css/rzslider.css"/>
+ 	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+<div id="app" class="app" ng-app="promo">
+
+	<header class="header" ng-controller="TimerCtrl">
+		<nav>
+			<img class="fake-nav" src="img/header.png" alt="" />
+		</nav>
+
+		<h1 class="main-header">Pay what you want for the <strong>Divinity Bundle</strong> ($32 value!)</h1>
+
+		<ul class="goodies-list">
+			<li class="list-item item-1"> 
+				Support Larian Studios
+			</li>
+			<li class="list-item item-2"> 
+				Play Divinity 2: DC before release
+			</li>
+			<li class="list-item item-3"> 
+				Get DRM-free games with goodies
+			</li>
+			<li class="list-item item-4 timer"> 
+				Only <time>{{time}}</time> left	
+			</li>
+		</ul>
+
+	</header>
+
+	<section class="main-product" ng-controller="SliderCtrl">
+
+		<ul class="presentation">
+			<li class="presentation-item item-1" >
+				<h2>
+					<img src="img/divine-divinity--active.png" alt="Divine Divinity" />
+				</h2>
+				<p class="presentation-text"><a href="#" target="_blank">Divine Divinity</a> (normal price $5.99)<br/>
+					<strong>with 6 goodies and 4 language versions</strong>
+				</p>
+				<p class="presentation-info active">Below average</p>
+				<div class="separator" ng-class="{ 'active': isAverage() }">+</div>
+			</li>
+			<li class="presentation-item item-1" ng-class="">
+				<h2>
+					<img ng-src="{{ isAverage() && 'img/beyond-divinity--active.png' || 'img/beyond-divinity--inactive.png' }}" alt="Beyond Divinity" />
+				</h2>
+				<p class="presentation-text"><a href="#" target="_blank">Beyond Divinity</a> (normal price $5.99)<br/>
+					<strong>with 6 goodies and 4 language versions</strong>
+				</p>
+				<p class="presentation-info" ng-class="{ 'active': isAverage() }">Above average <span><strong>(from ${{averageValue }})</strong></span></p>
+				<div class="separator" ng-class="{ 'active': isTop() }">+</div>
+			</li>
+			<li class="presentation-item item-1">
+				<h2>
+					<img ng-src="{{ isTop() && 'img/divine-divinity2--active.png' || 'img/divine-divinity2--inactive.png' }}" alt="Divine Divinity 2" />
+				</h2>
+				<p class="presentation-text"><a href="#" target="_blank"> Divinity 2</a> (normal price $19.99)<br/>
+					<strong>with 9 goodies and 7 language versions</strong>
+				</p>
+				<p class="presentation-info" ng-class="{ 'active': isTop() }">Top supporter <span><strong>(from ${{topValue}})</strong></span></p>	
+			</li>
+		</ul>
+
+		<div class="slider-container">
+			<p class="slider-min-val in-bl">${{ slider.options.floor }} </p>
+			<div class="slider" >
+				<rzslider 	rz-slider-model="slider.value"
+							rz-slider-options="slider.options"
+							>
+				</rzslider>
+
+		        <div class="pointer-caret in-bl" style="left: {{ caretValue() }}px" >
+		        	<edit-in-place class="caret-value" value="slider.value"></edit-in-place>
+		        	<button class="checkout-info in-bl" ng-click="shout()">Checkout now</button>
+		        	<p class="pointer-caret-info">Click the price to type it in manually</p>
+		        </div>
+
+			</div>
+			<p class="slider-max-val in-bl">${{ slider.options.ceil }} </p>
+
+		</div>
+
+	</section>
+
+	<section class="extended-info" ng-controller="ItemsListCtrl">
+		<div class="panel-left">
+			<h2 class="crossed-title">Goodies available for free with Divinity Bundle</h2>
+		<ul class="goodies-list2">
+			<li class="list-item" ng-repeat="item in items"> 
+				<img ng-src="{{item.src}}" alt="" />
+				<p class="list-item_para--title"><strong>{{item.title}}</strong></p>
+				<p class="list-item_para">{{item.description}}</p>	
+			</li>
+		</ul>
+		</div>
+
+		<div class="panel-right games-sold" ng-controller="MediaCtrl">
+			<h2 class="crossed-title">Games sold so far</h2>
+			<div class="games-sold-counter">
+				<p class="digit in-bl">{{ salesDigit(0) }}</p>
+				<p class="digit in-bl"> {{ salesDigit(1) }}</p>
+				<p class="digit in-bl"> {{ salesDigit(2) }}</p>
+				<p class="divider in-bl">.</p>
+				<p class="digit in-bl"> {{ salesDigit(3) }}</p>
+				<p class="digit in-bl"> {{ salesDigit(4) }}</p>
+				<p class="digit in-bl"> {{ salesDigit(5) }}</p>
+			</div>
+
+			<div class="media-container">
+<!-- 				<button class="prev-control"></button> -->					
+ 				<div class="movie-list">
+					<p class="list-item_para--title"><strong>{{ currentSlide.nextBreakpointTitle }}</strong></p>
+					<p class="list-item_para">{{ currentSlide.description }}</p>
+
+					<div class="media-image">
+					    <div class="arc-wrapper absolute-center" ng-controller="ArcCtrl">
+					        <progress-arc
+					            size="{{ size }}"
+					            stroke="{{ stroke }}"
+					            stroke-width="{{ strokeWidth }}"
+					            complete="getPercentage(currentSlide)"
+					            background="{{ background }}"
+					            counter-clockwise="{{ counterClockwise }}"></progress-arc>
+
+
+							<div class="play-movie" ng-show="isUnlocked(currentSlide)" >
+								<button class="absolute-center play-button">
+									<img src="img/play.png" alt="" /></button></div>
+
+							<div class="absolute-center still-loading" ng-hide="isUnlocked(currentSlide)" >{{ getPercentage(currentSlide) | percentage:0 }}</div>
+
+						</div>
+
+
+						<img class="img" ng-src="{{ currentSlide.thumbnail}}" alt="{{ currentSlide.description }}" />
+					</div>
+
+					<ul class="breakpoint-list">
+						<li class="breakpoint-item in-bl" ng-repeat="slide in slides" ng-click="select($index)" ng-class="{sel: $index === selected}">
+							<button class="locked" ng-click="setCurrentSlide(slide)">
+							<span ng-hide="isUnlocked(slide)">{{ slide.breakpoint | addCommas }}</span>
+							<span ng-show="isUnlocked(slide)"><img src="img/icons/check-ico.png" alt="" /></span>
+							</button>
+						</li>
+					</ul>
+
+				</div>
+<!-- 				<button class="next-control"></button> -->		
+			</div>
+
+
+
+		</div>
+
+	</section>
+
+
+</div>
+
+<!-- vendor -->
+<script type="text/javascript" src="js/vendor/angular.min.js"></script>
+<script type="text/javascript" src="js/vendor/rzslider.js"></script>
+<script type="text/javascript" src="js/vendor/angular-progress-arc.js"></script>
+
+<!-- app -->
+<script type="text/javascript" src="js/app.js"></script>
+
+<!-- controllers -->
+<script type="text/javascript" src="js/controllers/timerCtrl.js"></script>
+<script type="text/javascript" src="js/controllers/sliderCtrl.js"></script>
+<script type="text/javascript" src="js/controllers/mediaCtrl.js"></script>
+<script type="text/javascript" src="js/controllers/itemsListCtrl.js"></script>
+<script type="text/javascript" src="js/controllers/arcCtrl.js"></script>
+
+<!-- directives -->
+<script type="text/javascript" src="js/directives/editinplace.js"></script>
+
+</body>
+
+</html>
