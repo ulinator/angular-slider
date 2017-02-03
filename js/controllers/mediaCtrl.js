@@ -18,11 +18,11 @@ angular.module('promo')
     };
 
     $scope.slides = [
-    	{ breakpoint: 10000,  unlocked: 'false', movieUrl: '', thumbnail: '/img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 10.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
-    	{ breakpoint: 25000,  unlocked: 'false', movieUrl: '', thumbnail: '/img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 25.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
-    	{ breakpoint: 50000,  unlocked: 'false', movieUrl: '', thumbnail: '/img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 50.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
-    	{ breakpoint: 80000,  unlocked: 'false', movieUrl: '', thumbnail: '/img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 80.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
-    	{ breakpoint: 120000,  unlocked: 'false', movieUrl: '', thumbnail: '/img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 120.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
+    	{ breakpoint: 10000,  unlocked: 'false', movieUrl: '', thumbnail: 'img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 10.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
+    	{ breakpoint: 25000,  unlocked: 'false', movieUrl: '', thumbnail: 'img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 25.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
+    	{ breakpoint: 50000,  unlocked: 'false', movieUrl: '', thumbnail: 'img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 50.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
+    	{ breakpoint: 80000,  unlocked: 'false', movieUrl: '', thumbnail: 'img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 80.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
+    	{ breakpoint: 120000,  unlocked: 'false', movieUrl: '', thumbnail: 'img/thumbnails/thumb1.jpg', nextBreakpointTitle: 'Reach 120.000...', description: '...to unlock exclusive, never before seen, trailer from Divinity: Original Sin.'  },
     ];
 
     $scope.currentSlide = $scope.slides[0];
